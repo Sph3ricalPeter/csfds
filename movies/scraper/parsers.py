@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
-from unidecode import unidecode
+
+from .normalize import normalize
 
 BASE_URL = "https://www.csfd.cz"
 
@@ -104,7 +105,3 @@ def parse_detail(html: str) -> dict:
         url = f"{BASE_URL}{a['href']}"
         actors.append({"name": name, "name_normalized": normalize(name), "csfd_url": url})
     return {"actors": actors}
-
-
-def normalize(s: str) -> str:
-    return unidecode(s).strip().lower()

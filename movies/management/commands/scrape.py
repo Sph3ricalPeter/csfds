@@ -31,7 +31,7 @@ class Command(BaseCommand):
         env["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
         errs = []
-        with Client() as c:
+        with Client(headless=False) as c:
             films = []
             for start_rank in [1, 100, 200]:
                 try:
