@@ -47,24 +47,25 @@ BASE_URL = "https://www.csfd.cz"
 def parse_list(html: str) -> list[dict]:
     """Parse HTML of the film list page, extract rank, title, year, URL."""
 
-    soup = BeautifulSoup(html, 'html.parser')
+    soup = BeautifulSoup(html, "html.parser")
     films = []
 
-    for article in soup.select('article.article-poster-60'):
-        rank = int(article.select_one(
-            '.film-title-user').text.strip().rstrip('.'))
-        title = article.select_one('.film-title-name').text.strip()
-        year_text = article.select_one('.film-title-info .info').text.strip()
-        year = int(year_text.strip('()')) if year_text else None
+    for article in soup.select("article.article-poster-60"):
+        rank = int(article.select_one(".film-title-user").text.strip().rstrip("."))
+        title = article.select_one(".film-title-name").text.strip()
+        year_text = article.select_one(".film-title-info .info").text.strip()
+        year = int(year_text.strip("()")) if year_text else None
         url = f"{BASE_URL}{article.select_one('.film-title-name')['href']}"
-        films.append({
-            'rank': rank,
-            'title': title,
-            'title_normalized': normalize(title),
-            'year': year,
-            'csfd_url': url,
-            'actors': []  # Placeholder for actors, to be filled in detail parsing
-        })
+        films.append(
+            {
+                "rank": rank,
+                "title": title,
+                "title_normalized": normalize(title),
+                "year": year,
+                "csfd_url": url,
+                "actors": [],  # Placeholder for actors, to be filled in detail parsing
+            }
+        )
 
     return films
 
@@ -95,18 +96,19 @@ def parse_list(html: str) -> list[dict]:
 def parse_detail(html: str) -> dict:
     """Parse HTML of the film detail page, extract actors."""
 
-    soup = BeautifulSoup(html, 'html.parser')
+    soup = BeautifulSoup(html, "html.parser")
     actors = []
 
-    for a in soup.select('div.creators div:has(h4:-soup-contains("Hrají")) a[href^="/tvurce/"]'):
+    for a in soup.select(
+        'div.creators div:has(h4:-soup-contains("Hrají")) a[href^="/tvurce/"]'
+    ):
         name = a.text.strip()
         url = f"{BASE_URL}{a['href']}"
-        actors.append({
-            'name': name,
-            'name_normalized': normalize(name),
-            'csfd_url': url
-        })
-    return {'actors': actors}
+        actors.append(
+            {"name": name, "name_normalized": normalize(name), "csfd_url": url}
+        )
+    return {"actors": actors}
+
 
 def normalize(s: str) -> str:
     return unidecode(s).strip().lower()
