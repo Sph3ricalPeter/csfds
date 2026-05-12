@@ -1,0 +1,21 @@
+<form method="get">
+    <input type="text" name="q" value="{{ q }}" placeholder="search film or actor…" autofocus>
+</form>
+{% if q %}
+<h3>Films ({{ films|length }})</h3>
+<ul>
+    {% for f in films %}
+    <li>
+        <a href="{% url 'movies:film_detail' f.pk %}">#{{ f.rank }} {{ f.title }} ({{ f.year }})</a>
+    </li>
+    {% endfor %}
+</ul>
+<h3>Actors ({{ actors|length }})</h3>
+<ul>
+    {% for a in actors %}
+    <li>
+        <a href="{% url 'movies:actor_detail' a.pk %}">{{ a.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}

@@ -1,0 +1,11 @@
+<a href="{% url 'movies:search' %}">← search</a>
+<h1>{{ actor.name }}</h1>
+<a href="{{ actor.csfd_url }}" target="_blank">on CSFD</a>
+<h3>Films ({{ actor.films.count }})</h3>
+<ul>
+    {% for f in actor.films.all %}
+    <li>
+        <a href="{% url 'movies:film_detail' f.pk %}">#{{ f.rank }} {{ f.title }} ({{ f.year }})</a>
+    </li>
+    {% endfor %}
+</ul>
