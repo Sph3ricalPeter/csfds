@@ -1,10 +1,12 @@
-from os import environ as env
-from django.core.management.base import BaseCommand
-from movies.scraper.client import Client
-from movies.scraper.parsers import parse_list, parse_detail
-from movies.models import Film, Actor
-from django.db import transaction
 from argparse import ArgumentParser
+from os import environ as env
+
+from django.core.management.base import BaseCommand
+from django.db import transaction
+
+from movies.models import Actor, Film
+from movies.scraper.client import Client
+from movies.scraper.parsers import parse_detail, parse_list
 
 
 class Command(BaseCommand):

@@ -1,0 +1,12 @@
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = [".venv", ".cache", "movies/migrations"]
+
+[tool.ruff.lint]
+# Sensible defaults: pycodestyle errors + pyflakes + isort + bugbear
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]                   # line-length handled by formatter, not lint
+
+[tool.ruff.format]
+quote-style = "double"

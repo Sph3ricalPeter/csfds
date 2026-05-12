@@ -1,6 +1,7 @@
-from pathlib import Path
-from playwright.sync_api import sync_playwright
 from hashlib import sha1
+from pathlib import Path
+
+from playwright.sync_api import sync_playwright
 
 
 class Client:
@@ -32,9 +33,7 @@ class Client:
             self.browser.close()
         self.pw.stop()
 
-    def fetch_html(
-        self, url: str, *, wait_for_selector: str, use_cache: bool = True
-    ) -> str:
+    def fetch_html(self, url: str, *, wait_for_selector: str, use_cache: bool = True) -> str:
         """Fetch URL via PW, write disk cache + storage_state. Return HTML."""
         url_hash = sha1(url.encode()).hexdigest()[:16]
         cache_file = self.cache_dir / f"{url_hash}.html"

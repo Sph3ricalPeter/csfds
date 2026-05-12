@@ -99,14 +99,10 @@ def parse_detail(html: str) -> dict:
     soup = BeautifulSoup(html, "html.parser")
     actors = []
 
-    for a in soup.select(
-        'div.creators div:has(h4:-soup-contains("Hrají")) a[href^="/tvurce/"]'
-    ):
+    for a in soup.select('div.creators div:has(h4:-soup-contains("Hrají")) a[href^="/tvurce/"]'):
         name = a.text.strip()
         url = f"{BASE_URL}{a['href']}"
-        actors.append(
-            {"name": name, "name_normalized": normalize(name), "csfd_url": url}
-        )
+        actors.append({"name": name, "name_normalized": normalize(name), "csfd_url": url})
     return {"actors": actors}
 
 

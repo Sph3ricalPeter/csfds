@@ -1,6 +1,7 @@
-from movies.scraper import Client, parse_list, parse_detail
 from json import dump
 from pathlib import Path
+
+from movies.scraper import Client, parse_detail, parse_list
 
 TEST_FETCH = False
 OUT_DIR = Path("tmp")
