@@ -29,3 +29,7 @@ Thumbs.db
 
 # uv
 .python-version
+
+# other
+tmp/
+.cache/
