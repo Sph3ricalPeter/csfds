@@ -34,4 +34,3 @@ python manage.py runserver
 ## Known Issues
 
 - **Scraper needs headed Chromium** - without can get blocked after ~100 detail fetch requests
-- **Rank 300 is missing** - pagination quirk

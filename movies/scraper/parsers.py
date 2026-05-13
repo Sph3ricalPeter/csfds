@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-from .normalize import normalize
+from ..normalize import normalize
 
 BASE_URL = "https://www.csfd.cz"
 

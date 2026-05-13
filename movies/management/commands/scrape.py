@@ -21,7 +21,7 @@ class Command(BaseCommand):
         )
         parser.add_argument(
             "--no-cache",
-            action="store_false",
+            action="store_true",
             dest="no_cache",
             default=False,
             help="Disable cache when fetching HTML",
@@ -33,7 +33,7 @@ class Command(BaseCommand):
         errs = []
         with Client(headless=False) as c:
             films = []
-            for start_rank in [1, 100, 200]:
+            for start_rank in [1] + list(range(100, options["limit"] + 1, 100)):
                 try:
                     html = c.fetch_html(
                         f"https://www.csfd.cz/zebricky/filmy/nejlepsi/?from={start_rank}",
@@ -43,13 +43,11 @@ class Command(BaseCommand):
 
                     films.extend(parse_list(html))
                     print(f"Parsed {len(films)} films")
-
-                    if len(films) >= options["limit"]:
-                        films = films[: options["limit"]]
-                        break
                 except Exception as e:
                     errs.append(str(e))
 
+            films = films[: options["limit"]]
+            print(f"Total films to process: {len(films)}")
             for film_data in films:
                 try:
                     detail_html = c.fetch_html(
